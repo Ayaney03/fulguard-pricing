@@ -357,147 +357,107 @@
 
 <div class="hero">
   <div class="wrap">
-    <div class="label">AI BACKOFFICE ESTIMATE / MEETING MODE</div>
-    <h1>打ち合わせしながら、<br>その場で見積もりを組み立てる。</h1>
+    <h1>AIバックオフィス支援<br>料金シミュレーター</h1>
     <p class="lead">
-      AIバックオフィス支援の料金シミュレーター。ご依頼内容を一緒に選びながら、相場帯と内訳をその場でお見せします。<br>
-      ※常時運用代行ではなく、優先順位付け・設計・レビュー・マニュアル化を通じて、クライアント側で回せる状態をつくる前提です。
+      会計・売上・セールス情報を統合し、経営判断に使えるデータ基盤とAI業務フローをつくるご支援です。<br>
+      単発の運用代行ではなく、仕組み化・設計・ナレッジ化を通じて、<strong>お客様側で自走できる状態をつくる</strong>ことをゴールにしています。
     </p>
     <div class="hero-ctas no-print">
-      <a href="#estimator" class="btn btn-primary">見積もりを一緒に作る</a>
-      <a href="#market" class="btn">相場の置きどころを見る</a>
+      <a href="#estimator" class="btn btn-primary">見積もりをつくる</a>
+      <a href="#plans" class="btn">プランを見る</a>
     </div>
   </div>
 </div>
 
-<!-- 01 MARKET REFERENCE -->
-<section id="market" class="market-reference">
+<!-- プラン -->
+<section id="plans" class="market-reference">
   <div class="wrap">
-    <div class="sec-label">01 / MARKET REFERENCE</div>
-    <h2 class="sec-title">価格の納得感は、相場帯と役割定義でつくる。</h2>
-    <p class="sec-desc">まずは世の中の相場と、どのモードで入るかを合わせます。</p>
+    <h2 class="sec-title">ご支援プラン</h2>
+    <p class="sec-desc">ご状況に合わせて、3つのプランからお選びいただけます。</p>
     <div class="market-grid">
       <div class="market-card">
-        <div class="tag">TYPE A</div>
-        <h3>壁打ち型</h3>
-        <div class="price">月5万〜10万円前後</div>
-        <p>情報提供・質問対応中心。定例MTGは月1〜2回、実作業はクライアント側。</p>
+        <div class="tag">PLAN A</div>
+        <h3>相談・壁打ち型</h3>
+        <div class="price">月 10〜15万円</div>
+        <p>月1〜2回の定例で、経営・業務・AI活用の方針をご相談いただけます。実作業はお客様側で進めていただくプランです。</p>
       </div>
       <div class="market-card">
-        <div class="tag">TYPE B</div>
-        <h3>伴走型</h3>
-        <div class="price">月10万〜30万円前後</div>
-        <p>定例MTG＋改善提案を伴走。設計・レビュー・マニュアル化をこちらで巻き取る。</p>
+        <div class="tag">PLAN B</div>
+        <h3>伴走・顧問型</h3>
+        <div class="price">月 20〜50万円</div>
+        <p>会計・売上・セールス情報の整理から、業務設計・ダッシュボード運用まで継続的に伴走。設計・レビュー・マニュアル化をこちらで巻き取ります。</p>
       </div>
       <div class="market-card">
-        <div class="tag">TYPE C</div>
-        <h3>短期構築型</h3>
-        <div class="price">50万〜150万円超</div>
-        <p>1〜3か月で集中構築し、その後は自走へ。仕組み・BOT・ナレッジを一気通貫。</p>
+        <div class="tag">PLAN C</div>
+        <h3>構築・統合型</h3>
+        <div class="price">80〜300万円</div>
+        <p>会計×売上×セールス情報を統合し、経営ダッシュボード・AI業務基盤を1〜3か月で構築。構築後はお客様側で自走できる状態まで整えます。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 02 ESTIMATOR -->
+<!-- シミュレーター -->
 <section id="estimator">
   <div class="wrap">
-    <div class="sec-label">02 / MEETING ESTIMATOR</div>
-    <h2 class="sec-title">依頼内容を一緒に選んで、その場で内訳まで確かめる。</h2>
-    <p class="sec-desc">左の項目を選ぶと、右のサマリーに即時反映されます。</p>
+    <h2 class="sec-title">構築プラン お見積もりシミュレーター</h2>
+    <p class="sec-desc">必要な項目を選んでいただくと、右側のお見積もりに自動で反映されます。<br>
+    <span style="font-size: 12px; color: var(--accent-soft);">※ 顧問・伴走型（PLAN A / B）は月額でのご支援となり、別途ご相談にて金額を決めさせていただきます。</span></p>
 
     <div class="estimator-grid">
       <div class="est-left">
 
-        <!-- Step 1: メタ情報 -->
+        <!-- 1: 業務メニュー -->
         <div class="step-block">
           <div class="step-head">
-            <span class="step-num">STEP 01</span>
-            <span class="step-title">商談情報</span>
+            <span class="step-title">1. 構築内容（複数選択可）</span>
           </div>
-          <div class="step-desc">ヒアリングしながらメモ代わりに。</div>
-          <label class="field">
-            <span class="lbl">クライアント名</span>
-            <input type="text" id="clientName" placeholder="例：〇〇株式会社 △△様">
-          </label>
-          <label class="field">
-            <span class="lbl">案件名</span>
-            <input type="text" id="projectName" placeholder="例：UTAGE周り整備 + CS強化">
-          </label>
-          <label class="field">
-            <span class="lbl">商談メモ</span>
-            <textarea id="memo" placeholder="現状の課題・ゴール・スコープなど"></textarea>
-          </label>
-        </div>
-
-        <!-- Step 2: 支援タイプ -->
-        <div class="step-block">
-          <div class="step-head">
-            <span class="step-num">STEP 02</span>
-            <span class="step-title">支援タイプ</span>
-          </div>
-          <div class="step-desc">顧問で伴走か、短期で構築か。</div>
-          <div class="radio-row" id="modeGroup">
-            <label class="radio-chip active"><input type="radio" name="mode" value="advisor" checked>顧問・伴走型</label>
-            <label class="radio-chip"><input type="radio" name="mode" value="build">短期構築型</label>
-          </div>
-        </div>
-
-        <!-- Step 3: 業務メニュー -->
-        <div class="step-block">
-          <div class="step-head">
-            <span class="step-num">STEP 03</span>
-            <span class="step-title">業務メニュー（複数選択可）</span>
-          </div>
-          <div class="step-desc">必要なものをチェック。選ぶと下に詳細条件が開きます。</div>
+          <div class="step-desc">必要なものにチェックを入れてください。選ぶと詳細条件が表示されます。</div>
           <div class="menu-grid" id="menuGrid">
             <!-- JSで生成 -->
           </div>
-
-          <!-- 詳細条件（動的に表示） -->
           <div id="details" style="margin-top: 16px;"></div>
         </div>
 
-        <!-- Step 4: 共通条件 -->
+        <!-- 2: 共通条件 -->
         <div class="step-block">
           <div class="step-head">
-            <span class="step-num">STEP 04</span>
-            <span class="step-title">共通条件</span>
+            <span class="step-title">2. 対象範囲・フォロー期間</span>
           </div>
-          <div class="step-desc">関わり方の深さ・期間を調整します。</div>
+          <div class="step-desc">対象部門や、構築後のフォロー期間を調整できます。</div>
 
           <label class="field">
             <span class="lbl">定例MTG頻度</span>
             <div class="radio-row" data-group="mtg">
-              <label class="radio-chip active"><input type="radio" name="mtg" value="0" checked>月2回（基準）</label>
-              <label class="radio-chip"><input type="radio" name="mtg" value="80000">月4回（+¥80,000）</label>
+              <label class="radio-chip active"><input type="radio" name="mtg" value="0" checked>月2回</label>
+              <label class="radio-chip"><input type="radio" name="mtg" value="100000">月4回（+¥100,000）</label>
             </div>
           </label>
 
           <label class="field">
             <span class="lbl">チャット支援</span>
             <div class="radio-row" data-group="chat">
-              <label class="radio-chip active"><input type="radio" name="chat" value="0" checked>なし（基準）</label>
-              <label class="radio-chip"><input type="radio" name="chat" value="30000">平日簡易（+¥30,000）</label>
-              <label class="radio-chip"><input type="radio" name="chat" value="80000">高頻度（+¥80,000）</label>
+              <label class="radio-chip active"><input type="radio" name="chat" value="0" checked>なし</label>
+              <label class="radio-chip"><input type="radio" name="chat" value="50000">平日対応（+¥50,000）</label>
+              <label class="radio-chip"><input type="radio" name="chat" value="120000">即時対応（+¥120,000）</label>
             </div>
           </label>
 
           <label class="field">
-            <span class="lbl">対象人数</span>
+            <span class="lbl">対象人数・部門数</span>
             <div class="radio-row" data-group="people">
-              <label class="radio-chip active"><input type="radio" name="people" value="0" checked>1担当者（基準）</label>
-              <label class="radio-chip"><input type="radio" name="people" value="50000">小チーム（+¥50,000）</label>
-              <label class="radio-chip"><input type="radio" name="people" value="120000">複数部門（+¥120,000）</label>
+              <label class="radio-chip active"><input type="radio" name="people" value="0" checked>1担当者</label>
+              <label class="radio-chip"><input type="radio" name="people" value="80000">小チーム（+¥80,000）</label>
+              <label class="radio-chip"><input type="radio" name="people" value="200000">複数部門（+¥200,000）</label>
             </div>
           </label>
 
           <label class="field">
-            <span class="lbl">フォロー期間延長（短期構築型の場合）</span>
+            <span class="lbl">構築後のフォロー期間</span>
             <div class="radio-row" data-group="follow">
-              <label class="radio-chip active"><input type="radio" name="follow" value="0" checked>1か月（基準）</label>
-              <label class="radio-chip"><input type="radio" name="follow" value="80000">+1か月延長（+¥80,000）</label>
-              <label class="radio-chip"><input type="radio" name="follow" value="160000">+2か月延長（+¥160,000）</label>
+              <label class="radio-chip active"><input type="radio" name="follow" value="0" checked>1か月</label>
+              <label class="radio-chip"><input type="radio" name="follow" value="120000">2か月（+¥120,000）</label>
+              <label class="radio-chip"><input type="radio" name="follow" value="240000">3か月（+¥240,000）</label>
             </div>
           </label>
         </div>
@@ -506,23 +466,21 @@
 
       <!-- SUMMARY -->
       <div class="est-right" id="summary">
-        <div class="sum-head">03 / CURRENT SUMMARY</div>
-        <div class="sum-title" id="sumTitle">見積もり内訳</div>
-        <div class="sum-client" id="sumClient">クライアント情報が入ります</div>
+        <div class="sum-title" id="sumTitle">お見積もり</div>
 
         <div class="sum-total">
-          <div class="lbl">合計</div>
+          <div class="lbl">合計金額（税別）</div>
           <div class="amount" id="sumAmount">¥0</div>
           <div class="sub" id="sumSub"></div>
         </div>
 
         <div class="sum-list" id="sumList">
-          <div class="sum-empty">業務メニューを選ぶと<br>ここに内訳が表示されます。</div>
+          <div class="sum-empty">ご依頼内容を選ぶと<br>こちらに内訳が表示されます。</div>
         </div>
 
         <div class="sum-actions no-print">
-          <button class="btn btn-primary" onclick="window.print()">提案書として印刷 / PDF保存</button>
-          <button class="btn" onclick="resetAll()">リセット</button>
+          <button class="btn btn-primary" onclick="window.print()">この内容でPDF保存</button>
+          <button class="btn" onclick="resetAll()">条件をリセット</button>
         </div>
       </div>
 
@@ -541,22 +499,22 @@
 <script>
   // 業務メニュー定義
   const menus = [
-    { id: 'utage',    name: 'UTAGE UI改善',              sub: 'LP / 決済動線 / 会員ページ整備',         base: 120000, detail: 'lesson' },
-    { id: 'cs_line',  name: 'CS強化（LINE / メール整備）', sub: 'ステップ・シナリオ設計',                 base: 100000 },
-    { id: 'bot',      name: 'サポートBOT / NotebookLM構築', sub: 'FAQ / ナレッジ応答',                    base: 150000, detail: 'bot' },
-    { id: 'cs_back',  name: 'CS裏側構築',                  sub: 'スプレッドシート / 対応履歴 / SLA',      base: 120000, detail: 'faq' },
-    { id: 'finance',  name: '会計・数値反映',              sub: 'MF / freee / スプレッドシート連携',      base: 100000, detail: 'finance' },
-    { id: 'manual',   name: 'マニュアル作成',              sub: '業務手順の言語化・動画化',                base: 80000 },
-    { id: 'knowledge',name: 'ナレッジ化代行',              sub: '属人化業務の棚卸し・資料化',              base: 120000 },
-    { id: 'ltv',      name: 'LTV可視化 / 顧客分析',        sub: '数値ダッシュボード設計',                  base: 0,      detail: 'ltv' },
+    { id: 'data_hub', name: '事業データ統合基盤構築',        sub: '会計 × 売上 × セールスを1つに集約',        base: 450000, detail: 'hub' },
+    { id: 'dashboard',name: '経営ダッシュボード設計',        sub: 'KPI / 月次数値の自動可視化',               base: 280000, detail: 'dash' },
+    { id: 'ltv',      name: 'LTV・顧客分析基盤',             sub: 'リピート率 / 継続率 / セグメント分析',     base: 220000, detail: 'ltv' },
+    { id: 'ai_flow',  name: 'AI業務フロー設計',              sub: '業務プロセスの棚卸し＋AI組み込み設計',     base: 320000 },
+    { id: 'bot',      name: 'サポートBOT / NotebookLM構築',  sub: '社内FAQ・顧客対応の自動化',                base: 180000, detail: 'bot' },
+    { id: 'utage',    name: 'UTAGE UI改善・動線整備',        sub: 'LP / 決済 / 会員ページ整備',               base: 180000, detail: 'lesson' },
+    { id: 'cs_ops',   name: 'CS体制構築（LINE/メール/履歴管理）', sub: 'シナリオ設計＋対応履歴の整備',         base: 200000, detail: 'faq' },
+    { id: 'finance',  name: '会計・数値反映の自動化',        sub: 'MF / freee / スプレッドシート連携',        base: 180000, detail: 'finance' },
+    { id: 'manual',   name: '業務マニュアル作成',            sub: '業務手順の言語化・動画化',                  base: 120000 },
+    { id: 'knowledge',name: '属人化業務のナレッジ化',        sub: '業務棚卸し → 仕組み化・資料化',            base: 180000 },
   ];
 
   const state = {
-    mode: 'advisor',
-    menu: {},  // { menuId: true }
-    detail: {}, // 各メニューの詳細選択
+    menu: {},
+    detail: {},
     mtg: 0, chat: 0, people: 0, follow: 0,
-    client: '', project: '', memo: '',
   };
 
   // メニューチップ生成
@@ -569,53 +527,70 @@
       <input type="checkbox" data-menu="${m.id}">
       <span>
         <div class="mc-name">${m.name}</div>
-        <div class="mc-sub">${m.sub}${m.base ? ' / 基準¥' + m.base.toLocaleString() : ''}</div>
+        <div class="mc-sub">${m.sub}${m.base ? ' ／ ¥' + m.base.toLocaleString() + '〜' : ''}</div>
       </span>
     `;
     menuGrid.appendChild(label);
   });
 
-  // 詳細条件定義（メニューごとに展開される追加選択肢）
+  // 詳細条件定義
   const detailDefs = {
-    lesson: {
-      title: 'UTAGE UI改善 - レッスン/ページ数',
+    hub: {
+      title: '▸ データ統合基盤 - 接続するデータソース数',
       options: [
-        { label: '〜10ページ（基準）', value: 0 },
-        { label: '11〜30ページ（+¥40,000）', value: 40000 },
-        { label: '31〜60ページ（+¥80,000）', value: 80000 },
-        { label: '60ページ超（+¥120,000）', value: 120000 },
+        { label: '2ソース連携（会計＋売上 など）', value: 0 },
+        { label: '3〜4ソース連携（+¥150,000）', value: 150000 },
+        { label: '5ソース以上（全社統合 +¥350,000）', value: 350000 },
       ],
     },
-    bot: {
-      title: 'サポートBOT - 構成',
+    dash: {
+      title: '▸ ダッシュボード - 指標・画面数',
       options: [
-        { label: 'BOTのみ（¥150,000）', value: 0 },
-        { label: 'NotebookLMのみ（-¥50,000）', value: -50000 },
-        { label: '両方セット（+¥90,000）', value: 90000 },
-      ],
-    },
-    faq: {
-      title: 'CS裏側 - FAQ件数',
-      options: [
-        { label: '〜30件（基準）', value: 0 },
-        { label: '31〜80件（+¥30,000）', value: 30000 },
-        { label: '80件超（+¥60,000）', value: 60000 },
-      ],
-    },
-    finance: {
-      title: '会計・数値 - 使用ツール',
-      options: [
-        { label: 'スプレッドシート（¥90,000）', value: -10000 },
-        { label: 'マネーフォワード連携（+¥40,000）', value: 40000 },
-        { label: 'freee連携（+¥40,000）', value: 40000 },
-        { label: '即時反映設計を追加（+¥60,000）', value: 60000 },
+        { label: '基本KPI（月次売上・費用・利益など）', value: 0 },
+        { label: '詳細KPI（セグメント・チャネル別 +¥120,000）', value: 120000 },
+        { label: '経営会議用フル機能（+¥240,000）', value: 240000 },
       ],
     },
     ltv: {
-      title: 'LTV可視化 - 加算',
+      title: '▸ LTV・顧客分析 - 分析の深さ',
       options: [
-        { label: '基本可視化（¥70,000）', value: 70000 },
-        { label: '高度ダッシュボード（¥140,000）', value: 140000 },
+        { label: '基本可視化（継続率・単価）', value: 0 },
+        { label: 'セグメント分析付き（+¥100,000）', value: 100000 },
+        { label: '予測分析まで（+¥200,000）', value: 200000 },
+      ],
+    },
+    bot: {
+      title: '▸ サポートBOT - 構成',
+      options: [
+        { label: 'BOTのみ', value: 0 },
+        { label: 'NotebookLMのみ（-¥30,000）', value: -30000 },
+        { label: 'BOT + NotebookLM セット（+¥120,000）', value: 120000 },
+      ],
+    },
+    lesson: {
+      title: '▸ UTAGE整備 - ページ/講座数',
+      options: [
+        { label: '〜10ページ', value: 0 },
+        { label: '11〜30ページ（+¥60,000）', value: 60000 },
+        { label: '31〜60ページ（+¥120,000）', value: 120000 },
+        { label: '60ページ超（+¥180,000）', value: 180000 },
+      ],
+    },
+    faq: {
+      title: '▸ CS体制 - FAQ・シナリオ件数',
+      options: [
+        { label: '〜30件', value: 0 },
+        { label: '31〜80件（+¥50,000）', value: 50000 },
+        { label: '80件超（+¥100,000）', value: 100000 },
+      ],
+    },
+    finance: {
+      title: '▸ 会計・数値 - 使用ツール',
+      options: [
+        { label: 'スプレッドシートのみ', value: 0 },
+        { label: 'マネーフォワード連携（+¥60,000）', value: 60000 },
+        { label: 'freee連携（+¥60,000）', value: 60000 },
+        { label: '複数ツール連携 + 即時反映（+¥120,000）', value: 120000 },
       ],
     },
   };
@@ -680,21 +655,6 @@
     });
   });
 
-  // 支援タイプ
-  document.querySelectorAll('input[name=mode]').forEach(r => {
-    r.addEventListener('change', (e) => {
-      state.mode = e.target.value;
-      document.querySelectorAll('#modeGroup .radio-chip').forEach(c => c.classList.remove('active'));
-      e.target.closest('.radio-chip').classList.add('active');
-      calc();
-    });
-  });
-
-  // テキスト入力
-  document.getElementById('clientName').addEventListener('input', e => { state.client = e.target.value; calc(); });
-  document.getElementById('projectName').addEventListener('input', e => { state.project = e.target.value; calc(); });
-  document.getElementById('memo').addEventListener('input', e => { state.memo = e.target.value; });
-
   // 計算
   function calc() {
     const rows = [];
@@ -706,16 +666,16 @@
         let note = '';
         if (m.detail && detailDefs[m.detail]) {
           const delta = state.detail[m.id] || 0;
-          if (m.detail === 'ltv') {
-            line = delta;
-            note = detailDefs.ltv.options.find(o => o.value === delta)?.label || '';
-          } else {
-            line += delta;
-            if (delta !== 0) note = `(調整 ${delta>0?'+':''}¥${delta.toLocaleString()})`;
+          line += delta;
+          if (delta !== 0) {
+            const opt = detailDefs[m.detail].options.find(o => o.value === delta);
+            if (opt) {
+              note = opt.label.replace(/（.*$/, '').trim();
+            }
           }
         }
         if (line > 0) {
-          rows.push({ name: m.name + (note ? ' ' + note : ''), val: line });
+          rows.push({ name: m.name + (note ? '（' + note + '）' : ''), val: line });
           total += line;
         }
       }
@@ -725,8 +685,8 @@
     [
       { key: 'mtg',    name: '定例MTG（月4回）' },
       { key: 'chat',   name: 'チャット支援' },
-      { key: 'people', name: '対象人数拡大' },
-      { key: 'follow', name: 'フォロー期間延長' },
+      { key: 'people', name: '対象人数・部門拡大' },
+      { key: 'follow', name: '構築後フォロー期間延長' },
     ].forEach(c => {
       if (state[c.key] > 0) {
         rows.push({ name: c.name, val: state[c.key] });
@@ -737,7 +697,7 @@
     // 描画
     const list = document.getElementById('sumList');
     if (rows.length === 0) {
-      list.innerHTML = '<div class="sum-empty">業務メニューを選ぶと<br>ここに内訳が表示されます。</div>';
+      list.innerHTML = '<div class="sum-empty">ご依頼内容を選ぶと<br>こちらに内訳が表示されます。</div>';
     } else {
       list.innerHTML = rows.map(r =>
         `<div class="sum-row"><span class="nm">${r.name}</span><span class="vl">¥${r.val.toLocaleString()}</span></div>`
@@ -746,20 +706,7 @@
 
     document.getElementById('sumAmount').textContent = '¥' + total.toLocaleString();
 
-    // サブ情報
-    let sub = '';
-    if (state.mode === 'advisor') {
-      sub = '月額目安 / 顧問・伴走型';
-    } else {
-      sub = '総額 / 短期構築型（構築期間 + フォロー）';
-    }
-    document.getElementById('sumSub').textContent = rows.length ? sub : '';
-
-    // クライアント情報
-    const cl = state.client || state.project
-      ? `${state.client}${state.client && state.project ? ' / ' : ''}${state.project}`
-      : 'クライアント情報が入ります';
-    document.getElementById('sumClient').textContent = cl;
+    document.getElementById('sumSub').textContent = rows.length ? '構築費用 一括（構築期間＋フォロー期間込み）' : '';
   }
 
   function resetAll() {
