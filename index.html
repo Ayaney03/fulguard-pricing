@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIバックオフィス支援 料金シミュレーター | 株式会社フルガード</title>
+<meta name="description" content="打ち合わせしながら、その場で見積もりを組み立てる。AIバックオフィス支援の料金シミュレーター。">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f7f4ef;
+    --bg-panel: #ffffff;
+    --ink: #1c1c1c;
+    --ink-soft: #555;
+    --line: #e4ded4;
+    --accent: #2f3a4a;
+    --accent-soft: #6b7a90;
+    --gold: #b08a50;
+    --mono: 'Menlo', 'Courier New', monospace;
+    --sans: 'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+    --serif: 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  /* HERO */
+  .hero {
+    padding: 80px 0 60px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, #ece5d8 0%, var(--bg) 100%);
+  }
+  .hero .label {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--accent-soft);
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1.4;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+  .hero .lead {
+    font-size: 16px;
+    color: var(--ink-soft);
+    max-width: 720px;
+    margin-bottom: 32px;
+  }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    padding: 14px 28px;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--sans);
+  }
+  .btn:hover { background: var(--accent); color: #fff; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--ink); border-color: var(--ink); }
+
+  /* SECTION */
+  section { padding: 72px 0; border-bottom: 1px solid var(--line); }
+  .sec-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .sec-title {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .sec-desc { color: var(--ink-soft); margin-bottom: 36px; max-width: 720px; }
+
+  /* MARKET REFERENCE */
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .market-card {
+    background: var(--bg-panel);
+    padding: 28px 24px;
+    border: 1px solid var(--line);
+  }
+  .market-card .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .market-card h3 {
+    font-family: var(--serif);
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .market-card .price {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .market-card p { font-size: 13px; color: var(--ink-soft); }
+
+  /* ESTIMATOR LAYOUT */
+  .estimator-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .est-left { }
+  .est-right {
+    position: sticky;
+    top: 20px;
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    padding: 28px 24px;
+  }
+
+  .step-block {
+    background: var(--bg-panel);
+    border: 1px solid var(--line);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .step-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 6px;
+  }
+  .step-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+  }
+  .step-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .step-desc {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 18px;
+  }
+
+  /* FORM ELEMENTS */
+  label.field { display: block; margin-bottom: 14px; }
+  label.field > span.lbl {
+    display: block;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  input[type="text"], textarea, select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    background: #fbfaf7;
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--ink);
+  }
+  input[type="text"]:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: #fff;
+  }
+  textarea { resize: vertical; min-height: 72px; }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .menu-chip {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    background: #fbfaf7;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .menu-chip:hover { border-color: var(--accent-soft); }
+  .menu-chip input { margin-top: 3px; }
+  .menu-chip.active {
+    border-color: var(--accent);
+    background: #fff;
+    box-shadow: inset 3px 0 0 var(--gold);
+  }
+  .menu-chip .mc-name { font-size: 14px; font-weight: 500; }
+  .menu-chip .mc-sub { font-size: 12px; color: var(--ink-soft); margin-top: 2px; }
+
+  .radio-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .radio-chip {
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    background: #fbfaf7;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.15s;
+  }
+  .radio-chip.active {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+  }
+  .radio-chip input { display: none; }
+
+  .detail-panel {
+    display: none;
+    padding: 14px 16px;
+    background: #faf7f1;
+    border-left: 3px solid var(--gold);
+    margin-top: 10px;
+    margin-bottom: 4px;
+  }
+  .detail-panel.show { display: block; }
+  .detail-panel .dp-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--accent);
+  }
+
+  /* SUMMARY */
+  .sum-head {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .sum-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  .sum-client {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sum-total {
+    font-family: var(--serif);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 16px;
+  }
+  .sum-total .lbl {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    letter-spacing: 0.1em;
+  }
+  .sum-total .amount {
+    font-size: 34px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: 4px;
+  }
+  .sum-total .sub {
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    margin-top: 6px;
+  }
+  .sum-list { margin-bottom: 20px; }
+  .sum-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--line);
+    font-size: 13px;
+  }
+  .sum-row .nm { color: var(--ink); flex: 1; }
+  .sum-row .vl { color: var(--accent); font-family: var(--mono); font-size: 12px; }
+  .sum-empty {
+    padding: 20px 0;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+  .sum-actions { display: flex; flex-direction: column; gap: 10px; }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 0 60px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  footer .fin {
+    font-family: var(--mono);
+    letter-spacing: 0.2em;
+    margin-bottom: 10px;
+    color: var(--gold);
+  }
+
+  /* MOBILE */
+  @media (max-width: 860px) {
+    .hero { padding: 60px 0 40px; }
+    .hero h1 { font-size: 26px; }
+    .market-grid { grid-template-columns: 1fr; }
+    .estimator-grid { grid-template-columns: 1fr; }
+    .est-right { position: static; }
+    .menu-grid { grid-template-columns: 1fr; }
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: #fff; font-size: 12px; }
+    .hero, .market-reference, .step-block, .hero-ctas, .sum-actions { }
+    .no-print { display: none !important; }
+    section { border: none; padding: 20px 0; page-break-inside: avoid; }
+    .estimator-grid { grid-template-columns: 1fr; }
+    .est-right { position: static; border: 2px solid var(--accent); padding: 20px; }
+    .sum-total .amount { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="label">AI BACKOFFICE ESTIMATE / MEETING MODE</div>
+    <h1>打ち合わせしながら、<br>その場で見積もりを組み立てる。</h1>
+    <p class="lead">
+      AIバックオフィス支援の料金シミュレーター。ご依頼内容を一緒に選びながら、相場帯と内訳をその場でお見せします。<br>
+      ※常時運用代行ではなく、優先順位付け・設計・レビュー・マニュアル化を通じて、クライアント側で回せる状態をつくる前提です。
+    </p>
+    <div class="hero-ctas no-print">
+      <a href="#estimator" class="btn btn-primary">見積もりを一緒に作る</a>
+      <a href="#market" class="btn">相場の置きどころを見る</a>
+    </div>
+  </div>
+</div>
+
+<!-- 01 MARKET REFERENCE -->
+<section id="market" class="market-reference">
+  <div class="wrap">
+    <div class="sec-label">01 / MARKET REFERENCE</div>
+    <h2 class="sec-title">価格の納得感は、相場帯と役割定義でつくる。</h2>
+    <p class="sec-desc">まずは世の中の相場と、どのモードで入るかを合わせます。</p>
+    <div class="market-grid">
+      <div class="market-card">
+        <div class="tag">TYPE A</div>
+        <h3>壁打ち型</h3>
+        <div class="price">月5万〜10万円前後</div>
+        <p>情報提供・質問対応中心。定例MTGは月1〜2回、実作業はクライアント側。</p>
+      </div>
+      <div class="market-card">
+        <div class="tag">TYPE B</div>
+        <h3>伴走型</h3>
+        <div class="price">月10万〜30万円前後</div>
+        <p>定例MTG＋改善提案を伴走。設計・レビュー・マニュアル化をこちらで巻き取る。</p>
+      </div>
+      <div class="market-card">
+        <div class="tag">TYPE C</div>
+        <h3>短期構築型</h3>
+        <div class="price">50万〜150万円超</div>
+        <p>1〜3か月で集中構築し、その後は自走へ。仕組み・BOT・ナレッジを一気通貫。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 ESTIMATOR -->
+<section id="estimator">
+  <div class="wrap">
+    <div class="sec-label">02 / MEETING ESTIMATOR</div>
+    <h2 class="sec-title">依頼内容を一緒に選んで、その場で内訳まで確かめる。</h2>
+    <p class="sec-desc">左の項目を選ぶと、右のサマリーに即時反映されます。</p>
+
+    <div class="estimator-grid">
+      <div class="est-left">
+
+        <!-- Step 1: メタ情報 -->
+        <div class="step-block">
+          <div class="step-head">
+            <span class="step-num">STEP 01</span>
+            <span class="step-title">商談情報</span>
+          </div>
+          <div class="step-desc">ヒアリングしながらメモ代わりに。</div>
+          <label class="field">
+            <span class="lbl">クライアント名</span>
+            <input type="text" id="clientName" placeholder="例：〇〇株式会社 △△様">
+          </label>
+          <label class="field">
+            <span class="lbl">案件名</span>
+            <input type="text" id="projectName" placeholder="例：UTAGE周り整備 + CS強化">
+          </label>
+          <label class="field">
+            <span class="lbl">商談メモ</span>
+            <textarea id="memo" placeholder="現状の課題・ゴール・スコープなど"></textarea>
+          </label>
+        </div>
+
+        <!-- Step 2: 支援タイプ -->
+        <div class="step-block">
+          <div class="step-head">
+            <span class="step-num">STEP 02</span>
+            <span class="step-title">支援タイプ</span>
+          </div>
+          <div class="step-desc">顧問で伴走か、短期で構築か。</div>
+          <div class="radio-row" id="modeGroup">
+            <label class="radio-chip active"><input type="radio" name="mode" value="advisor" checked>顧問・伴走型</label>
+            <label class="radio-chip"><input type="radio" name="mode" value="build">短期構築型</label>
+          </div>
+        </div>
+
+        <!-- Step 3: 業務メニュー -->
+        <div class="step-block">
+          <div class="step-head">
+            <span class="step-num">STEP 03</span>
+            <span class="step-title">業務メニュー（複数選択可）</span>
+          </div>
+          <div class="step-desc">必要なものをチェック。選ぶと下に詳細条件が開きます。</div>
+          <div class="menu-grid" id="menuGrid">
+            <!-- JSで生成 -->
+          </div>
+
+          <!-- 詳細条件（動的に表示） -->
+          <div id="details" style="margin-top: 16px;"></div>
+        </div>
+
+        <!-- Step 4: 共通条件 -->
+        <div class="step-block">
+          <div class="step-head">
+            <span class="step-num">STEP 04</span>
+            <span class="step-title">共通条件</span>
+          </div>
+          <div class="step-desc">関わり方の深さ・期間を調整します。</div>
+
+          <label class="field">
+            <span class="lbl">定例MTG頻度</span>
+            <div class="radio-row" data-group="mtg">
+              <label class="radio-chip active"><input type="radio" name="mtg" value="0" checked>月2回（基準）</label>
+              <label class="radio-chip"><input type="radio" name="mtg" value="80000">月4回（+¥80,000）</label>
+            </div>
+          </label>
+
+          <label class="field">
+            <span class="lbl">チャット支援</span>
+            <div class="radio-row" data-group="chat">
+              <label class="radio-chip active"><input type="radio" name="chat" value="0" checked>なし（基準）</label>
+              <label class="radio-chip"><input type="radio" name="chat" value="30000">平日簡易（+¥30,000）</label>
+              <label class="radio-chip"><input type="radio" name="chat" value="80000">高頻度（+¥80,000）</label>
+            </div>
+          </label>
+
+          <label class="field">
+            <span class="lbl">対象人数</span>
+            <div class="radio-row" data-group="people">
+              <label class="radio-chip active"><input type="radio" name="people" value="0" checked>1担当者（基準）</label>
+              <label class="radio-chip"><input type="radio" name="people" value="50000">小チーム（+¥50,000）</label>
+              <label class="radio-chip"><input type="radio" name="people" value="120000">複数部門（+¥120,000）</label>
+            </div>
+          </label>
+
+          <label class="field">
+            <span class="lbl">フォロー期間延長（短期構築型の場合）</span>
+            <div class="radio-row" data-group="follow">
+              <label class="radio-chip active"><input type="radio" name="follow" value="0" checked>1か月（基準）</label>
+              <label class="radio-chip"><input type="radio" name="follow" value="80000">+1か月延長（+¥80,000）</label>
+              <label class="radio-chip"><input type="radio" name="follow" value="160000">+2か月延長（+¥160,000）</label>
+            </div>
+          </label>
+        </div>
+
+      </div>
+
+      <!-- SUMMARY -->
+      <div class="est-right" id="summary">
+        <div class="sum-head">03 / CURRENT SUMMARY</div>
+        <div class="sum-title" id="sumTitle">見積もり内訳</div>
+        <div class="sum-client" id="sumClient">クライアント情報が入ります</div>
+
+        <div class="sum-total">
+          <div class="lbl">合計</div>
+          <div class="amount" id="sumAmount">¥0</div>
+          <div class="sub" id="sumSub"></div>
+        </div>
+
+        <div class="sum-list" id="sumList">
+          <div class="sum-empty">業務メニューを選ぶと<br>ここに内訳が表示されます。</div>
+        </div>
+
+        <div class="sum-actions no-print">
+          <button class="btn btn-primary" onclick="window.print()">提案書として印刷 / PDF保存</button>
+          <button class="btn" onclick="resetAll()">リセット</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fin">— FULGUARD INC. —</div>
+    <div>株式会社フルガード / AIバックオフィス支援</div>
+    <div style="margin-top: 6px; font-size: 11px;">本シミュレーターの金額は目安です。実際のご提案は打ち合わせ後にご案内します。</div>
+  </div>
+</footer>
+
+<script>
+  // 業務メニュー定義
+  const menus = [
+    { id: 'utage',    name: 'UTAGE UI改善',              sub: 'LP / 決済動線 / 会員ページ整備',         base: 120000, detail: 'lesson' },
+    { id: 'cs_line',  name: 'CS強化（LINE / メール整備）', sub: 'ステップ・シナリオ設計',                 base: 100000 },
+    { id: 'bot',      name: 'サポートBOT / NotebookLM構築', sub: 'FAQ / ナレッジ応答',                    base: 150000, detail: 'bot' },
+    { id: 'cs_back',  name: 'CS裏側構築',                  sub: 'スプレッドシート / 対応履歴 / SLA',      base: 120000, detail: 'faq' },
+    { id: 'finance',  name: '会計・数値反映',              sub: 'MF / freee / スプレッドシート連携',      base: 100000, detail: 'finance' },
+    { id: 'manual',   name: 'マニュアル作成',              sub: '業務手順の言語化・動画化',                base: 80000 },
+    { id: 'knowledge',name: 'ナレッジ化代行',              sub: '属人化業務の棚卸し・資料化',              base: 120000 },
+    { id: 'ltv',      name: 'LTV可視化 / 顧客分析',        sub: '数値ダッシュボード設計',                  base: 0,      detail: 'ltv' },
+  ];
+
+  const state = {
+    mode: 'advisor',
+    menu: {},  // { menuId: true }
+    detail: {}, // 各メニューの詳細選択
+    mtg: 0, chat: 0, people: 0, follow: 0,
+    client: '', project: '', memo: '',
+  };
+
+  // メニューチップ生成
+  const menuGrid = document.getElementById('menuGrid');
+  menus.forEach(m => {
+    const label = document.createElement('label');
+    label.className = 'menu-chip';
+    label.dataset.id = m.id;
+    label.innerHTML = `
+      <input type="checkbox" data-menu="${m.id}">
+      <span>
+        <div class="mc-name">${m.name}</div>
+        <div class="mc-sub">${m.sub}${m.base ? ' / 基準¥' + m.base.toLocaleString() : ''}</div>
+      </span>
+    `;
+    menuGrid.appendChild(label);
+  });
+
+  // 詳細条件定義（メニューごとに展開される追加選択肢）
+  const detailDefs = {
+    lesson: {
+      title: 'UTAGE UI改善 - レッスン/ページ数',
+      options: [
+        { label: '〜10ページ（基準）', value: 0 },
+        { label: '11〜30ページ（+¥40,000）', value: 40000 },
+        { label: '31〜60ページ（+¥80,000）', value: 80000 },
+        { label: '60ページ超（+¥120,000）', value: 120000 },
+      ],
+    },
+    bot: {
+      title: 'サポートBOT - 構成',
+      options: [
+        { label: 'BOTのみ（¥150,000）', value: 0 },
+        { label: 'NotebookLMのみ（-¥50,000）', value: -50000 },
+        { label: '両方セット（+¥90,000）', value: 90000 },
+      ],
+    },
+    faq: {
+      title: 'CS裏側 - FAQ件数',
+      options: [
+        { label: '〜30件（基準）', value: 0 },
+        { label: '31〜80件（+¥30,000）', value: 30000 },
+        { label: '80件超（+¥60,000）', value: 60000 },
+      ],
+    },
+    finance: {
+      title: '会計・数値 - 使用ツール',
+      options: [
+        { label: 'スプレッドシート（¥90,000）', value: -10000 },
+        { label: 'マネーフォワード連携（+¥40,000）', value: 40000 },
+        { label: 'freee連携（+¥40,000）', value: 40000 },
+        { label: '即時反映設計を追加（+¥60,000）', value: 60000 },
+      ],
+    },
+    ltv: {
+      title: 'LTV可視化 - 加算',
+      options: [
+        { label: '基本可視化（¥70,000）', value: 70000 },
+        { label: '高度ダッシュボード（¥140,000）', value: 140000 },
+      ],
+    },
+  };
+
+  // メニューチェックボックス→状態
+  document.querySelectorAll('[data-menu]').forEach(cb => {
+    cb.addEventListener('change', (e) => {
+      const id = e.target.dataset.menu;
+      state.menu[id] = e.target.checked;
+      const chip = e.target.closest('.menu-chip');
+      chip.classList.toggle('active', e.target.checked);
+      if (!e.target.checked) delete state.detail[id];
+      renderDetails();
+      calc();
+    });
+  });
+
+  // 詳細条件UIを描画
+  function renderDetails() {
+    const box = document.getElementById('details');
+    box.innerHTML = '';
+    menus.forEach(m => {
+      if (state.menu[m.id] && m.detail && detailDefs[m.detail]) {
+        const def = detailDefs[m.detail];
+        const panel = document.createElement('div');
+        panel.className = 'detail-panel show';
+        panel.innerHTML = `<div class="dp-title">▸ ${def.title}</div>`;
+        const row = document.createElement('div');
+        row.className = 'radio-row';
+        def.options.forEach((opt, i) => {
+          const lab = document.createElement('label');
+          lab.className = 'radio-chip' + (i === 0 ? ' active' : '');
+          lab.innerHTML = `<input type="radio" name="d_${m.id}" value="${opt.value}" ${i===0?'checked':''}>${opt.label}`;
+          row.appendChild(lab);
+        });
+        panel.appendChild(row);
+        box.appendChild(panel);
+        if (state.detail[m.id] === undefined) state.detail[m.id] = def.options[0].value;
+
+        row.querySelectorAll('input[type=radio]').forEach(r => {
+          r.addEventListener('change', (e) => {
+            state.detail[m.id] = parseInt(e.target.value, 10);
+            row.querySelectorAll('.radio-chip').forEach(c => c.classList.remove('active'));
+            e.target.closest('.radio-chip').classList.add('active');
+            calc();
+          });
+        });
+      }
+    });
+  }
+
+  // ラジオ（共通条件）
+  document.querySelectorAll('[data-group]').forEach(group => {
+    const name = group.dataset.group;
+    group.querySelectorAll('input[type=radio]').forEach(r => {
+      r.addEventListener('change', (e) => {
+        state[name] = parseInt(e.target.value, 10);
+        group.querySelectorAll('.radio-chip').forEach(c => c.classList.remove('active'));
+        e.target.closest('.radio-chip').classList.add('active');
+        calc();
+      });
+    });
+  });
+
+  // 支援タイプ
+  document.querySelectorAll('input[name=mode]').forEach(r => {
+    r.addEventListener('change', (e) => {
+      state.mode = e.target.value;
+      document.querySelectorAll('#modeGroup .radio-chip').forEach(c => c.classList.remove('active'));
+      e.target.closest('.radio-chip').classList.add('active');
+      calc();
+    });
+  });
+
+  // テキスト入力
+  document.getElementById('clientName').addEventListener('input', e => { state.client = e.target.value; calc(); });
+  document.getElementById('projectName').addEventListener('input', e => { state.project = e.target.value; calc(); });
+  document.getElementById('memo').addEventListener('input', e => { state.memo = e.target.value; });
+
+  // 計算
+  function calc() {
+    const rows = [];
+    let total = 0;
+
+    menus.forEach(m => {
+      if (state.menu[m.id]) {
+        let line = m.base;
+        let note = '';
+        if (m.detail && detailDefs[m.detail]) {
+          const delta = state.detail[m.id] || 0;
+          if (m.detail === 'ltv') {
+            line = delta;
+            note = detailDefs.ltv.options.find(o => o.value === delta)?.label || '';
+          } else {
+            line += delta;
+            if (delta !== 0) note = `(調整 ${delta>0?'+':''}¥${delta.toLocaleString()})`;
+          }
+        }
+        if (line > 0) {
+          rows.push({ name: m.name + (note ? ' ' + note : ''), val: line });
+          total += line;
+        }
+      }
+    });
+
+    // 共通条件
+    [
+      { key: 'mtg',    name: '定例MTG（月4回）' },
+      { key: 'chat',   name: 'チャット支援' },
+      { key: 'people', name: '対象人数拡大' },
+      { key: 'follow', name: 'フォロー期間延長' },
+    ].forEach(c => {
+      if (state[c.key] > 0) {
+        rows.push({ name: c.name, val: state[c.key] });
+        total += state[c.key];
+      }
+    });
+
+    // 描画
+    const list = document.getElementById('sumList');
+    if (rows.length === 0) {
+      list.innerHTML = '<div class="sum-empty">業務メニューを選ぶと<br>ここに内訳が表示されます。</div>';
+    } else {
+      list.innerHTML = rows.map(r =>
+        `<div class="sum-row"><span class="nm">${r.name}</span><span class="vl">¥${r.val.toLocaleString()}</span></div>`
+      ).join('');
+    }
+
+    document.getElementById('sumAmount').textContent = '¥' + total.toLocaleString();
+
+    // サブ情報
+    let sub = '';
+    if (state.mode === 'advisor') {
+      sub = '月額目安 / 顧問・伴走型';
+    } else {
+      sub = '総額 / 短期構築型（構築期間 + フォロー）';
+    }
+    document.getElementById('sumSub').textContent = rows.length ? sub : '';
+
+    // クライアント情報
+    const cl = state.client || state.project
+      ? `${state.client}${state.client && state.project ? ' / ' : ''}${state.project}`
+      : 'クライアント情報が入ります';
+    document.getElementById('sumClient').textContent = cl;
+  }
+
+  function resetAll() {
+    location.reload();
+  }
+
+  calc();
+</script>
+
+</body>
+</html>
